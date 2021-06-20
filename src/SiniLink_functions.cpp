@@ -2,7 +2,7 @@
 
 #include "Tinker_SiniLink.h"
 // #include "Tinker_MQTT.h"
-#define MQTT_BUFFER_SIZE (100)       // This number is arbitrary
+#define MQTT_BUFFER_SIZE (100) // This number is arbitrary
 
 void MQTT_SendSTAT(const char *Topic, const char *Message);
 void MQTT_SendNOTI(const char *Topic, const char *Message);
@@ -38,20 +38,20 @@ bool SiniLink_PWR_STATE;
 bool SiniLink_LED01_STATE;
 bool SiniLink_LED02_STATE;
 
-void SiniLink_MQTT(char* Topic, char Message[MQTT_BUFFER_SIZE])
+void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
 {
-            // MQTT_SendNOTI(Topic, Message);
-            // Serial.print("-=[");
-            // Serial.print(Topic);
-            // Serial.println("]=-");
-            // Serial.print("-=[");
-            // Serial.print(Message);
-            // Serial.println("]=-");
+    // MQTT_SendNOTI(Topic, Message);
+    // Serial.print("-=[");
+    // Serial.print(Topic);
+    // Serial.println("]=-");
+    // Serial.print("-=[");
+    // Serial.print(Message);
+    // Serial.println("]=-");
 
     if (strcmp(Topic, "Power") == 0)
     {
-            // MQTT_SendTELE(Topic, Topic);
-            MQTT_SendNOTI("triggered", "Power!!!");
+        // MQTT_SendTELE(Topic, Topic);
+        MQTT_SendNOTI("triggered", "Power!!!");
         if (strcmp(Message, "on") == 0)
             SiniLink_Relay(HIGH);
         if (strcmp(Message, "off") == 0)
@@ -61,8 +61,8 @@ void SiniLink_MQTT(char* Topic, char Message[MQTT_BUFFER_SIZE])
     }
     else if (strcmp(Topic, "LED01") == 0)
     {
-            // MQTT_SendTELE(Topic, Topic);
-            MQTT_SendNOTI("triggered", "LED01!!!");
+        // MQTT_SendTELE(Topic, Topic);
+        MQTT_SendNOTI("triggered", "LED01!!!");
         if (strcmp(Message, "on") == 0)
             SiniLink_LED(HIGH);
         if (strcmp(Message, "off") == 0)
@@ -72,8 +72,8 @@ void SiniLink_MQTT(char* Topic, char Message[MQTT_BUFFER_SIZE])
     }
     else if (strcmp(Topic, "LED02") == 0)
     {
-            // MQTT_SendTELE(Topic, Topic);
-            MQTT_SendNOTI("triggered", "LED02!!!");
+        // MQTT_SendTELE(Topic, Topic);
+        MQTT_SendNOTI("triggered", "LED02!!!");
         if (strcmp(Message, "on") == 0)
             SiniLink_LINKLED(HIGH);
         if (strcmp(Message, "off") == 0)
@@ -104,6 +104,20 @@ void SiniLink_Relay(bool OnOff)
         digitalWrite(SiniLink_POWER, LOW);
         SiniLink_PWR_STATE = LOW;
         MQTT_SendSTAT("Power", "OFF");
+    }
+}
+
+// Turn relay on/off
+void SiniLink_Toggle()
+{
+    DEBUG_LineOut("Relay TOGGLE");
+    if (SiniLink_PWR_STATE == LOW)
+    {
+        SiniLink_Relay(HIGH);
+    }
+    else
+    {
+        SiniLink_Relay(LOW);
     }
 }
 

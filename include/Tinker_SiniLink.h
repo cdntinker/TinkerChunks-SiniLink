@@ -13,5 +13,6 @@ void SiniLink_MQTT(char* Topic, char* Message);
 
 void SiniLink_Button();
 void SiniLink_Relay(bool OnOff);
+void SiniLink_Toggle();
 void SiniLink_LED(bool OnOff);
 void SiniLink_LINKLED(bool OnOff);
