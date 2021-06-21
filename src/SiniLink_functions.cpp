@@ -88,6 +88,9 @@ void SiniLink_Button()
 {
 }
 
+String SiniLink_TurnOn;
+String SiniLink_TurnOff;
+
 // Turn relay on/off
 void SiniLink_Relay(bool OnOff)
 {
@@ -95,6 +98,8 @@ void SiniLink_Relay(bool OnOff)
     {
         digitalWrite(SiniLink_POWER, HIGH);
         SiniLink_PWR_STATE = HIGH;
+        SiniLink_TurnOn = "ButtonClickable";
+        SiniLink_TurnOff = "ButtonHere";
         MQTT_SendSTAT("Power", "ON");
         DEBUG_LineOut("Relay ON");
     }
@@ -102,6 +107,8 @@ void SiniLink_Relay(bool OnOff)
     {
         digitalWrite(SiniLink_POWER, LOW);
         SiniLink_PWR_STATE = LOW;
+        SiniLink_TurnOn = "ButtonHere";
+        SiniLink_TurnOff = "ButtonClickable";
         MQTT_SendSTAT("Power", "OFF");
         DEBUG_LineOut("Relay OFF");
     }
