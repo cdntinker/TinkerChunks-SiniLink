@@ -93,17 +93,17 @@ void SiniLink_Relay(bool OnOff)
 {
     if (OnOff)
     {
-        DEBUG_LineOut("Relay ON");
         digitalWrite(SiniLink_POWER, HIGH);
         SiniLink_PWR_STATE = HIGH;
         MQTT_SendSTAT("Power", "ON");
+        DEBUG_LineOut("Relay ON");
     }
     else
     {
-        DEBUG_LineOut("Relay OFF");
         digitalWrite(SiniLink_POWER, LOW);
         SiniLink_PWR_STATE = LOW;
         MQTT_SendSTAT("Power", "OFF");
+        DEBUG_LineOut("Relay OFF");
     }
 }
 
