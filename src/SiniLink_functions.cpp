@@ -40,13 +40,6 @@ bool SiniLink_LED02_STATE;
 
 void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
 {
-    // MQTT_SendNOTI(Topic, Message);
-    // Serial.print("-=[");
-    // Serial.print(Topic);
-    // Serial.println("]=-");
-    // Serial.print("-=[");
-    // Serial.print(Message);
-    // Serial.println("]=-");
 
     if (strcmp(Topic, "Power") == 0)
     {
@@ -57,7 +50,8 @@ void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
         if (strcmp(Message, "off") == 0)
             SiniLink_Relay(LOW);
         if (strcmp(Message, "toggle") == 0)
-            SiniLink_Relay(!SiniLink_PWR_STATE);
+        SiniLink_Toggle();
+            // SiniLink_Relay(!SiniLink_PWR_STATE);
     }
     else if (strcmp(Topic, "LED01") == 0)
     {
@@ -118,14 +112,16 @@ void SiniLink_Relay(bool OnOff)
 void SiniLink_Toggle()
 {
     DEBUG_LineOut("Relay TOGGLE");
-    if (SiniLink_PWR_STATE == LOW)
-    {
-        SiniLink_Relay(HIGH);
-    }
-    else
-    {
-        SiniLink_Relay(LOW);
-    }
+                SiniLink_Relay(!SiniLink_PWR_STATE);
+
+    // if (SiniLink_PWR_STATE == LOW)
+    // {
+    //     SiniLink_Relay(HIGH);
+    // }
+    // else
+    // {
+    //     SiniLink_Relay(LOW);
+    // }
 }
 
 // Turn LED on/off
