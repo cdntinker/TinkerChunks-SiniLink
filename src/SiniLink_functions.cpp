@@ -40,6 +40,7 @@ bool SiniLink_LED02_STATE;
 
 void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
 {
+    DEBUG_SectionTitle("SiniLink Action");
 
     if (strcmp(Topic, "Power") == 0)
     {
