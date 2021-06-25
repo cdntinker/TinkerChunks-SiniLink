@@ -40,7 +40,6 @@ bool SiniLink_LED02_STATE;
 
 void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
 {
-    DEBUG_SectionTitle("SiniLink Action");
 
     if (strcmp(Topic, "Power") == 0)
     {
@@ -89,6 +88,7 @@ String SiniLink_TurnOff;
 // Turn relay on/off
 void SiniLink_Relay(bool OnOff)
 {
+    DEBUG_SectionTitle("SiniLink Action");
     if (OnOff)
     {
         digitalWrite(SiniLink_POWER, HIGH);
@@ -112,6 +112,7 @@ void SiniLink_Relay(bool OnOff)
 // Turn relay on/off
 void SiniLink_Toggle()
 {
+    DEBUG_SectionTitle("SiniLink Action");
     DEBUG_LineOut("Relay TOGGLE");
                 SiniLink_Relay(!SiniLink_PWR_STATE);
 
