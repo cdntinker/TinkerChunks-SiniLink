@@ -38,7 +38,7 @@ bool SiniLink_PWR_STATE;
 bool SiniLink_LED01_STATE;
 bool SiniLink_LED02_STATE;
 
-void MQTT_HandleMessages(const char *Topic, const char *Message)
+void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE])
 {
 
     if ((strcmp(Topic, "/Power") == 0) |
@@ -50,7 +50,7 @@ void MQTT_HandleMessages(const char *Topic, const char *Message)
         strcpy(Command, Topic);
         memmove(Command, Topic + 1, strlen(Topic + 1) + 1);
         // Then send it along with MQTT_msg_in off to SiniLink...
-        SiniLink_MQTT(Command, Message);
+        // SiniLink_MQTT(Command, Message);
     }
 
     else
@@ -60,7 +60,7 @@ void MQTT_HandleMessages(const char *Topic, const char *Message)
     }
 }
 
-void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
+void SiniLink_MQTT(char *Topic, const char Message[MQTT_BUFFER_SIZE])
 {
 
     if (strcmp(Topic, "Power") == 0)
