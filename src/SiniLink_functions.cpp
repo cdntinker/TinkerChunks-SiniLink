@@ -38,7 +38,7 @@ bool SiniLink_PWR_STATE;
 bool SiniLink_LED01_STATE;
 bool SiniLink_LED02_STATE;
 
-int MQTT_BUFFER_SIZE = 100;
+// int MQTT_BUFFER_SIZE = 100;
 
 void MQTT_HandleMessages(const char *Topic, const char *Message)
 {
