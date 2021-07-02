@@ -41,10 +41,10 @@ bool SiniLink_LED02_STATE;
 void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE])
 {
 
-    if ((strcmp(Topic, "/Power") == 0) |
-        (strcmp(Topic, "/LED01") == 0) |
-        (strcmp(Topic, "/LED02") == 0))
-    {
+    // if ((strcmp(Topic, "/Power") == 0) |
+    //     (strcmp(Topic, "/LED01") == 0) |
+    //     (strcmp(Topic, "/LED02") == 0))
+    // {
         /////////////////////////////////////////////////////////////////////////
             if (strcmp(Topic, "/Power") == 0)
     {
@@ -80,14 +80,8 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         if (strcmp(Message, "toggle") == 0)
             SiniLink_LINKLED(!SiniLink_LED02_STATE);
     }
-        /////////////////////////////////////////////////////////////////////////
-        // // Rip the leading slash off MQTT_command like a bandaid
-        // char Command[MQTT_BUFFER_SIZE];
-        // strcpy(Command, Topic);
-        // memmove(Command, Topic + 1, strlen(Topic + 1) + 1);
-        // // Then send it along with MQTT_msg_in off to SiniLink...
-        // // SiniLink_MQTT(Command, Message);
-    }
+  
+    // }
 
     else
     {
