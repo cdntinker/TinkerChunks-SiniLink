@@ -38,36 +38,27 @@ bool SiniLink_PWR_STATE;
 bool SiniLink_LED01_STATE;
 bool SiniLink_LED02_STATE;
 
-// int MQTT_BUFFER_SIZE = 100;
-
 void MQTT_HandleMessages(const char *Topic, const char *Message)
 {
-        char debugTEXT[46];
+    char debugTEXT[46];
 
-    sprintf(debugTEXT, "  Topic: %s", Topic);
-    DEBUG_Success(debugTEXT);
-    sprintf(debugTEXT, "Message: %s", Message);
-    DEBUG_Success(debugTEXT);
+    if ((strcmp(Topic, "/Power") == 0) |
+        (strcmp(Topic, "/LED01") == 0) |
+        (strcmp(Topic, "/LED02") == 0))
+    {
+        // Rip the leading slash off MQTT_command like a bandaid
+        char Command[MQTT_BUFFER_SIZE];
+        strcpy(Command, Topic);
+        memmove(Command, Topic + 1, strlen(Topic + 1) + 1);
+        // Then send it along with MQTT_msg_in off to SiniLink...
+        SiniLink_MQTT(Command, Message);
+    }
 
-
-        if ((strcmp(Topic, "/Power") == 0) |
-                 (strcmp(Topic, "/LED01") == 0) |
-                 (strcmp(Topic, "/LED02") == 0))
-        {
-            // Rip the leading slash off MQTT_command like a bandaid
-            char Command[MQTT_BUFFER_SIZE];
-            strcpy(Command, Topic);
-            memmove(Command, Topic + 1, strlen(Topic + 1) + 1);
-            // Then send it along with MQTT_msg_in off to SiniLink...
-            // SiniLink_MQTT(Command, Message);
-        }
-
-        else
-        {
-            DEBUG_Trouble("Dunno Whatcha want...");
-            MQTT_SendNOTI("Error", "Dunno Whatcha want...");
-        }
-
+    else
+    {
+        DEBUG_Trouble("Dunno Whatcha want...");
+        MQTT_SendNOTI("Error", "Dunno Whatcha want...");
+    }
 }
 
 void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
@@ -82,8 +73,8 @@ void SiniLink_MQTT(char *Topic, char Message[MQTT_BUFFER_SIZE])
         if (strcmp(Message, "off") == 0)
             SiniLink_Relay(LOW);
         if (strcmp(Message, "toggle") == 0)
-        SiniLink_Toggle();
-            // SiniLink_Relay(!SiniLink_PWR_STATE);
+            SiniLink_Toggle();
+        // SiniLink_Relay(!SiniLink_PWR_STATE);
     }
     else if (strcmp(Topic, "LED01") == 0)
     {
@@ -146,7 +137,7 @@ void SiniLink_Toggle()
 {
     DEBUG_SectionTitle("SiniLink Action");
     DEBUG_LineOut("Relay TOGGLE");
-                SiniLink_Relay(!SiniLink_PWR_STATE);
+    SiniLink_Relay(!SiniLink_PWR_STATE);
 
     // if (SiniLink_PWR_STATE == LOW)
     // {
