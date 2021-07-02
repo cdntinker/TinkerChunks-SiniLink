@@ -40,7 +40,6 @@ bool SiniLink_LED02_STATE;
 
 void MQTT_HandleMessages(const char *Topic, const char *Message)
 {
-    char debugTEXT[46];
 
     if ((strcmp(Topic, "/Power") == 0) |
         (strcmp(Topic, "/LED01") == 0) |
