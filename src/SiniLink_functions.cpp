@@ -40,13 +40,7 @@ bool SiniLink_LED02_STATE;
 
 void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE])
 {
-
-    // if ((strcmp(Topic, "/Power") == 0) |
-    //     (strcmp(Topic, "/LED01") == 0) |
-    //     (strcmp(Topic, "/LED02") == 0))
-    // {
-        /////////////////////////////////////////////////////////////////////////
-            if (strcmp(Topic, "/Power") == 0)
+    if (strcmp(Topic, "/Power") == 0)
     {
         // MQTT_SendTELE(Topic, Topic);
         MQTT_SendNOTI("triggered", "Power!!!");
@@ -80,8 +74,6 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         if (strcmp(Message, "toggle") == 0)
             SiniLink_LINKLED(!SiniLink_LED02_STATE);
     }
-  
-    // }
 
     else
     {
