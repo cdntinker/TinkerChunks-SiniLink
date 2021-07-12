@@ -125,7 +125,7 @@ void SiniLink_LINKLED(bool OnOff)
     }
 }
 
-#if defined(SiniLink) && !defined(TestCode)
+#if defined(SiniLink) //&& !defined(TestCode)
 void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE])
 {
     if (strcmp(Topic, "/Power") == 0)
