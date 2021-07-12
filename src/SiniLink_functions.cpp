@@ -166,6 +166,7 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
     {
         MQTT_SendSTAT("triggered", "Status!!!");    // Really should make this actually do something...
         DEBUG_LineOut("Status Requested");
+        MQTT_SendSTAT("Power", SiniLink_PWR_STATE);
     }
 
     else
