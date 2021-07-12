@@ -162,6 +162,11 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         if (strcmp(Message, "toggle") == 0)
             SiniLink_LINKLED(!SiniLink_LED02_STATE);
     }
+    else if (strcmp(Topic, "/Status") == 0)
+    {
+        MQTT_SendSTAT("triggered", "Status!!!");    // Really should make this actually do something...
+        DEBUG_LineOut("Status Requested");
+    }
 
     else
     {
