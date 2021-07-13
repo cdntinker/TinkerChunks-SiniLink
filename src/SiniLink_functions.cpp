@@ -168,10 +168,11 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         DEBUG_LineOut("Status Requested");
         if (strcmp(Message, "Power") == 0)
         {
-        if (SiniLink_PWR_STATE)
-            MQTT_SendSTAT("Power", "ON");
-            else
-            MQTT_SendSTAT("Power", "OFF");
+            MQTT_SendSTAT("Power", SiniLink_PWR_STATE ? "ON" : "OFF");
+        // if (SiniLink_PWR_STATE)
+        //     MQTT_SendSTAT("Power", "ON");
+        //     else
+        //     MQTT_SendSTAT("Power", "OFF");
         }
         else if (strcmp(Message, "LED01") == 0)
         {
