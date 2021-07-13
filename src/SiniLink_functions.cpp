@@ -164,12 +164,34 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
     }
     else if (strcmp(Topic, "/Status") == 0)
     {
-        MQTT_SendSTAT("triggered", "Status!!!"); // Really should make this actually do something...
+        MQTT_SendNOTI("triggered", "Status!!!");
         DEBUG_LineOut("Status Requested");
+        if (strcmp(Message, "Power") == 0)
+        {
         if (SiniLink_PWR_STATE)
             MQTT_SendSTAT("Power", "ON");
             else
             MQTT_SendSTAT("Power", "OFF");
+        }
+        else if (strcmp(Message, "LED01") == 0)
+        {
+        if (SiniLink_LED01)
+            MQTT_SendSTAT("LED01", "ON");
+            else
+            MQTT_SendSTAT("LED01", "OFF");
+        }
+        else if (strcmp(Message, "LNKLD") == 0)
+        {
+        if (SiniLink_LNKLD)
+            MQTT_SendSTAT("LNKLD", "ON");
+            else
+            MQTT_SendSTAT("LNKLD", "OFF");
+        }
+        else if (strcmp(Message, "All") == 0)
+        {
+            MQTT_SendSTAT("AllofEM", "OFF");
+        }
+
     }
 
     else
