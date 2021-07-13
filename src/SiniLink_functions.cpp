@@ -169,28 +169,20 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         if (strcmp(Message, "Power") == 0)
         {
             MQTT_SendSTAT("Power", SiniLink_PWR_STATE ? "ON" : "OFF");
-        // if (SiniLink_PWR_STATE)
-        //     MQTT_SendSTAT("Power", "ON");
-        //     else
-        //     MQTT_SendSTAT("Power", "OFF");
         }
         else if (strcmp(Message, "LED01") == 0)
         {
-        if (SiniLink_LED01)
-            MQTT_SendSTAT("LED01", "ON");
-            else
-            MQTT_SendSTAT("LED01", "OFF");
+            MQTT_SendSTAT("LED01", SiniLink_LED01 ? "ON" : "OFF");
         }
         else if (strcmp(Message, "LNKLD") == 0)
         {
-        if (SiniLink_LNKLD)
-            MQTT_SendSTAT("LNKLD", "ON");
-            else
-            MQTT_SendSTAT("LNKLD", "OFF");
+            MQTT_SendSTAT("LNKLD", SiniLink_LNKLD ? "ON" : "OFF");
         }
         else if (strcmp(Message, "All") == 0)
         {
-            MQTT_SendSTAT("AllofEM", "OFF");
+            MQTT_SendSTAT("Power", SiniLink_PWR_STATE ? "ON" : "OFF");
+            MQTT_SendSTAT("LED01", SiniLink_LED01 ? "ON" : "OFF");
+            MQTT_SendSTAT("LNKLD", SiniLink_LNKLD ? "ON" : "OFF");
         }
 
     }
