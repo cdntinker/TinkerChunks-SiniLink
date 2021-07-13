@@ -184,7 +184,7 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
             MQTT_SendSTAT("LED01", SiniLink_LED01 ? "ON" : "OFF");
             MQTT_SendSTAT("LNKLD", SiniLink_LNKLD ? "ON" : "OFF");
         }
-        else if (strcmp(Message, "All") == 0)
+        // else if (strcmp(Message, "All") == 0)
 
     }
 
