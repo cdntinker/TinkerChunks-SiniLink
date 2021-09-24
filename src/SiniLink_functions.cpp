@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "Tinker_SiniLink.h"
+#include "Tinker_SmartSwitch.h"
 // #include "Tinker_MQTT.h"
 #define MQTT_BUFFER_SIZE (100) // This number is arbitrary
 
@@ -9,118 +9,118 @@ void MQTT_SendNOTI(const char *Topic, const char *Message);
 void MQTT_SendTELE(const char *Topic, const char *Message);
 #include "Tinker_DEBUG.h"
 
-// void SiniLink_test()
+// void SmartSwitch_test()
 // {
 //     if (TestState)
 //         TestState = LOW;
 //     else
 //         TestState = HIGH;
-//     // SiniLink_LED(TestState);
-//     // SiniLink_LINKLED(TestState);
-//     SiniLink_Relay(TestState);
+//     // SmartSwitch_LED(TestState);
+//     // SmartSwitch_LINKLED(TestState);
+//     SmartSwitch_Relay(TestState);
 // }
 
-void SiniLink_init()
+void SmartSwitch_init()
 {
-    DEBUG_Init("SiniLink");
+    DEBUG_Init("SmartSwitch");
 
-    pinMode(SiniLink_POWER, OUTPUT);
-    pinMode(SiniLink_LED01, OUTPUT);
-    pinMode(SiniLink_LNKLD, OUTPUT);
+    pinMode(SmartSwitch_POWER, OUTPUT);
+    pinMode(SmartSwitch_LED01, OUTPUT);
+    pinMode(SmartSwitch_LNKLD, OUTPUT);
 }
 
-bool SiniLink_PWR_STATE;
-bool SiniLink_LED01_STATE;
-bool SiniLink_LED02_STATE;
+bool SmartSwitch_PWR_STATE;
+bool SmartSwitch_LED01_STATE;
+bool SmartSwitch_LED02_STATE;
 
 // Detect button press
-void SiniLink_Button()
+void SmartSwitch_Button()
 {
 }
 
-String SiniLink_TurnOn;
-String SiniLink_TurnOff;
+String SmartSwitch_TurnOn;
+String SmartSwitch_TurnOff;
 
 // Turn relay on/off
-void SiniLink_Relay(bool OnOff)
+void SmartSwitch_Relay(bool OnOff)
 {
-    DEBUG_SectionTitle("SiniLink Action");
+    DEBUG_SectionTitle("SmartSwitch Action");
     if (OnOff)
     {
-        digitalWrite(SiniLink_POWER, HIGH);
-        SiniLink_PWR_STATE = HIGH;
-        SiniLink_TurnOn = "ButtonHere";
-        SiniLink_TurnOff = "ButtonClickable";
+        digitalWrite(SmartSwitch_POWER, HIGH);
+        SmartSwitch_PWR_STATE = HIGH;
+        SmartSwitch_TurnOn = "ButtonHere";
+        SmartSwitch_TurnOff = "ButtonClickable";
         MQTT_SendSTAT("Power", "ON");
         DEBUG_LineOut("Relay ON");
     }
     else
     {
-        digitalWrite(SiniLink_POWER, LOW);
-        SiniLink_PWR_STATE = LOW;
-        SiniLink_TurnOn = "ButtonClickable";
-        SiniLink_TurnOff = "ButtonHere";
+        digitalWrite(SmartSwitch_POWER, LOW);
+        SmartSwitch_PWR_STATE = LOW;
+        SmartSwitch_TurnOn = "ButtonClickable";
+        SmartSwitch_TurnOff = "ButtonHere";
         MQTT_SendSTAT("Power", "OFF");
         DEBUG_LineOut("Relay OFF");
     }
 }
 
 // Turn relay on/off
-void SiniLink_Toggle()
+void SmartSwitch_Toggle()
 {
-    DEBUG_SectionTitle("SiniLink Action");
+    DEBUG_SectionTitle("SmartSwitch Action");
     DEBUG_LineOut("Relay TOGGLE");
-    SiniLink_Relay(!SiniLink_PWR_STATE);
+    SmartSwitch_Relay(!SmartSwitch_PWR_STATE);
 
-    // if (SiniLink_PWR_STATE == LOW)
+    // if (SmartSwitch_PWR_STATE == LOW)
     // {
-    //     SiniLink_Relay(HIGH);
+    //     SmartSwitch_Relay(HIGH);
     // }
     // else
     // {
-    //     SiniLink_Relay(LOW);
+    //     SmartSwitch_Relay(LOW);
     // }
 }
 
 // Turn LED on/off
-void SiniLink_LED(bool OnOff)
+void SmartSwitch_LED(bool OnOff)
 {
     if (OnOff)
     {
         DEBUG_LineOut("LED ON");
-        digitalWrite(SiniLink_LED01, HIGH);
-        SiniLink_LED01_STATE = HIGH;
+        digitalWrite(SmartSwitch_LED01, HIGH);
+        SmartSwitch_LED01_STATE = HIGH;
         MQTT_SendSTAT("LED01", "ON");
     }
     else
     {
         DEBUG_LineOut("LED OFF");
-        digitalWrite(SiniLink_LED01, LOW);
-        SiniLink_LED01_STATE = LOW;
+        digitalWrite(SmartSwitch_LED01, LOW);
+        SmartSwitch_LED01_STATE = LOW;
         MQTT_SendSTAT("LED01", "OFF");
     }
 }
 
 // Turn Link LED on/off
-void SiniLink_LINKLED(bool OnOff)
+void SmartSwitch_LINKLED(bool OnOff)
 {
     if (OnOff)
     {
         DEBUG_LineOut("Link LED ON");
-        digitalWrite(SiniLink_LNKLD, HIGH);
-        SiniLink_LED02_STATE = HIGH;
+        digitalWrite(SmartSwitch_LNKLD, HIGH);
+        SmartSwitch_LED02_STATE = HIGH;
         MQTT_SendSTAT("LED02", "ON");
     }
     else
     {
         DEBUG_LineOut("Link LED OFF");
-        digitalWrite(SiniLink_LNKLD, LOW);
-        SiniLink_LED02_STATE = LOW;
+        digitalWrite(SmartSwitch_LNKLD, LOW);
+        SmartSwitch_LED02_STATE = LOW;
         MQTT_SendSTAT("LED02", "OFF");
     }
 }
 
-#if defined(SiniLink) && !defined(TestCode)
+#if defined(SmartSwitch) && !defined(TestCode)
 void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE])
 {
     if (strcmp(Topic, "/Power") == 0)
@@ -128,34 +128,34 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         // MQTT_SendTELE(Topic, Topic);
         MQTT_SendNOTI("triggered", "Power!!!");
         if (strcmp(Message, "on") == 0)
-            SiniLink_Relay(HIGH);
+            SmartSwitch_Relay(HIGH);
         if (strcmp(Message, "off") == 0)
-            SiniLink_Relay(LOW);
+            SmartSwitch_Relay(LOW);
         if (strcmp(Message, "toggle") == 0)
-            SiniLink_Toggle();
-        // SiniLink_Relay(!SiniLink_PWR_STATE);
+            SmartSwitch_Toggle();
+        // SmartSwitch_Relay(!SmartSwitch_PWR_STATE);
     }
     else if (strcmp(Topic, "/LED01") == 0)
     {
         // MQTT_SendTELE(Topic, Topic);
         MQTT_SendNOTI("triggered", "LED01!!!");
         if (strcmp(Message, "on") == 0)
-            SiniLink_LED(HIGH);
+            SmartSwitch_LED(HIGH);
         if (strcmp(Message, "off") == 0)
-            SiniLink_LED(LOW);
+            SmartSwitch_LED(LOW);
         if (strcmp(Message, "toggle") == 0)
-            SiniLink_LED(!SiniLink_LED01_STATE);
+            SmartSwitch_LED(!SmartSwitch_LED01_STATE);
     }
     else if (strcmp(Topic, "/LED02") == 0)
     {
         // MQTT_SendTELE(Topic, Topic);
         MQTT_SendNOTI("triggered", "LED02!!!");
         if (strcmp(Message, "on") == 0)
-            SiniLink_LINKLED(HIGH);
+            SmartSwitch_LINKLED(HIGH);
         if (strcmp(Message, "off") == 0)
-            SiniLink_LINKLED(LOW);
+            SmartSwitch_LINKLED(LOW);
         if (strcmp(Message, "toggle") == 0)
-            SiniLink_LINKLED(!SiniLink_LED02_STATE);
+            SmartSwitch_LINKLED(!SmartSwitch_LED02_STATE);
     }
     else if (strcmp(Topic, "/Status") == 0)
     {
@@ -163,21 +163,21 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         DEBUG_LineOut("Status Requested");
         if (strcmp(Message, "Power") == 0)
         {
-            MQTT_SendSTAT("Power", SiniLink_PWR_STATE ? "ON" : "OFF");
+            MQTT_SendSTAT("Power", SmartSwitch_PWR_STATE ? "ON" : "OFF");
         }
         else if (strcmp(Message, "LED01") == 0)
         {
-            MQTT_SendSTAT("LED01", SiniLink_LED01 ? "ON" : "OFF");
+            MQTT_SendSTAT("LED01", SmartSwitch_LED01 ? "ON" : "OFF");
         }
         else if (strcmp(Message, "LNKLD") == 0)
         {
-            MQTT_SendSTAT("LNKLD", SiniLink_LNKLD ? "ON" : "OFF");
+            MQTT_SendSTAT("LNKLD", SmartSwitch_LNKLD ? "ON" : "OFF");
         }
         else if (strcmp(Message, "All") == 0)
         {
-            MQTT_SendSTAT("Power", SiniLink_PWR_STATE ? "ON" : "OFF");
-            MQTT_SendSTAT("LED01", SiniLink_LED01 ? "ON" : "OFF");
-            MQTT_SendSTAT("LNKLD", SiniLink_LNKLD ? "ON" : "OFF");
+            MQTT_SendSTAT("Power", SmartSwitch_PWR_STATE ? "ON" : "OFF");
+            MQTT_SendSTAT("LED01", SmartSwitch_LED01 ? "ON" : "OFF");
+            MQTT_SendSTAT("LNKLD", SmartSwitch_LNKLD ? "ON" : "OFF");
         }
         // else if (strcmp(Message, "All") == 0)
 
