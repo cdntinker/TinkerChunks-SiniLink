@@ -9,11 +9,6 @@ void MQTT_SendNOTI(const char *Topic, const char *Message);
 void MQTT_SendTELE(const char *Topic, const char *Message);
 #include "Tinker_DEBUG.h"
 
-#define SiniLink_BUTTN 4  // The button
-#define SiniLink_POWER 5  // Switch the connections + red LED
-#define SiniLink_LED01 14 // Green LED
-#define SiniLink_LNKLD 16 // Blue LED
-
 // void SiniLink_test()
 // {
 //     if (TestState)
