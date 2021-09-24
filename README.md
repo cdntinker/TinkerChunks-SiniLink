@@ -1,7 +1,7 @@
 # TinkerChunks-SiniLink
 Testing libraries for PlatformIO usage.  (SiniLink)
 
-This will become `TinkerChunks-SmartSwitch`
+This is becoming `TinkerChunks-SmartSwitch`
 
 It will cover:
 * SiniLink XY-WFUSB USB switch
