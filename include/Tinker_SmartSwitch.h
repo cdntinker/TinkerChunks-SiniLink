@@ -1,18 +1,19 @@
 
 #ifndef SmartSwitch_DEFINES
 #define SmartSwitch_DEFINES
-  #define SmartSwitch_BUTTN 4  // Button 1 - The button
-  #define SmartSwitch_POWER 5  // Relay 1  - The Relay + red LED
-  #define SmartSwitch_LED01 14 // LED 1    - Green LED
-  #define SmartSwitch_LNKLD 16 // LEDLINK  - Blue LED
+  #ifndef SmartSwitch_BUTTN
+    #define SmartSwitch_BUTTN 4  // Button 1 - The button
+  #endif
+  #ifndef SmartSwitch_POWER
+    #define SmartSwitch_POWER 5  // Relay 1  - The Relay + red LED
+  #endif
+  #ifndef SmartSwitch_LED01
+    #define SmartSwitch_LED01 14 // LED 1    - Green LED
+  #endif
+  #ifndef SmartSwitch_LNKLD
+    #define SmartSwitch_LNKLD 16 // LEDLINK  - Blue LED
+  #endif
 #endif // SmartSwitch_DEFINES
-
-// #ifndef SonoffBasic_DEFINES
-// #define SonoffBasic_DEFINES
-//   #define SonoffBasic_BUTTN 0  // Button 1 - The button
-//   #define SonoffBasic_POWER 12 // Relay 1  - The Relay
-//   #define SonoffBasic_LED01 13 // LED 1    - Green LED (inverted)
-// #endif // SonoffBasic_DEFINES
 
 // bool TestState = LOW;
 
