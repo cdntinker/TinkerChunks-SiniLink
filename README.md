@@ -31,7 +31,7 @@ This library uses [my DEBUG library](https://github.com/cdntinker/TinkerLibs-DEB
 This is a sketchy outline that's being worked on...
 
 ### PlatformIO
-In `platformio.ini`, add https://github.com/cdntinker/TinkerChunks-SmartSwitch to your `lib-deps` for the project.
+In `platformio.ini`, add https://github.com/cdntinker/TinkerChunks-SmartSwitch to your `lib-deps` for the project:
 
 ```
 lib_deps =
@@ -39,6 +39,16 @@ lib_deps =
    https://github.com/cdntinker/TinkerLibs-DEBUG
    https://github.com/cdntinker/TinkerChunks-SmartSwitch
    Some Other Library
+```
+
+Also, in `platformio.ini`, You can define the GPIO pins (Current defaults are for the Sinilink XY-WFUSB):
+
+```
+build_flags =
+    -D SmartSwitch_RELAY01=5
+    -D SmartSwitch_BUTTN01=4
+    -D SmartSwitch_LED01=14
+    -D SmartSwitch_LED02=16
 ```
 
 Then add `#include <Tinker_SmartSwitch.h>` to any source file you want to reference these functions in.
@@ -53,4 +63,7 @@ Create a subfolder in there for this library.  (I named it `TinkerChunks-SmartSw
 Download and copy the content of the `src` & `include` folders there.
 
 ## The Functions
+These are all declared in **Tinker_SmartSwitch.h**
+
 ## An Example
+Sorry...  Not yet.
