@@ -1,17 +1,17 @@
 
 #ifndef SmartSwitch_DEFINES
 #define SmartSwitch_DEFINES
-  #ifndef SmartSwitch_BUTTN
-    #define SmartSwitch_BUTTN 4  // Button 1 - The button
+  #ifndef SmartSwitch_BUTTN01
+    #define SmartSwitch_BUTTN01 4  // Button 1 - The button
   #endif
-  #ifndef SmartSwitch_POWER
-    #define SmartSwitch_POWER 5  // Relay 1  - The Relay + red LED
+  #ifndef SmartSwitch_RELAY01
+    #define SmartSwitch_RELAY01 5  // Relay 1  - The Relay + red LED
   #endif
   #ifndef SmartSwitch_LED01
     #define SmartSwitch_LED01 14 // LED 1    - Green LED
   #endif
-  #ifndef SmartSwitch_LNKLD
-    #define SmartSwitch_LNKLD 16 // LEDLINK  - Blue LED
+  #ifndef SmartSwitch_LED02
+    #define SmartSwitch_LED02 16 // LEDLINK  - Blue LED
   #endif
 #endif // SmartSwitch_DEFINES
 

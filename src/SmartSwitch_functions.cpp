@@ -24,9 +24,9 @@ void SmartSwitch_init()
 {
     DEBUG_Init("SmartSwitch");
 
-    pinMode(SmartSwitch_POWER, OUTPUT);
+    pinMode(SmartSwitch_RELAY01, OUTPUT);
     pinMode(SmartSwitch_LED01, OUTPUT);
-    pinMode(SmartSwitch_LNKLD, OUTPUT);
+    pinMode(SmartSwitch_LED02, OUTPUT);
 }
 
 bool SmartSwitch_PWR_STATE;
@@ -47,7 +47,7 @@ void SmartSwitch_Relay(bool OnOff)
     DEBUG_SectionTitle("SmartSwitch Action");
     if (OnOff)
     {
-        digitalWrite(SmartSwitch_POWER, HIGH);
+        digitalWrite(SmartSwitch_RELAY01, HIGH);
         SmartSwitch_PWR_STATE = HIGH;
         SmartSwitch_TurnOn = "ButtonHere";
         SmartSwitch_TurnOff = "ButtonClickable";
@@ -56,7 +56,7 @@ void SmartSwitch_Relay(bool OnOff)
     }
     else
     {
-        digitalWrite(SmartSwitch_POWER, LOW);
+        digitalWrite(SmartSwitch_RELAY01, LOW);
         SmartSwitch_PWR_STATE = LOW;
         SmartSwitch_TurnOn = "ButtonClickable";
         SmartSwitch_TurnOff = "ButtonHere";
@@ -107,14 +107,14 @@ void SmartSwitch_LINKLED(bool OnOff)
     if (OnOff)
     {
         DEBUG_LineOut("Link LED ON");
-        digitalWrite(SmartSwitch_LNKLD, HIGH);
+        digitalWrite(SmartSwitch_LED02, HIGH);
         SmartSwitch_LED02_STATE = HIGH;
         MQTT_SendSTAT("LED02", "ON");
     }
     else
     {
         DEBUG_LineOut("Link LED OFF");
-        digitalWrite(SmartSwitch_LNKLD, LOW);
+        digitalWrite(SmartSwitch_LED02, LOW);
         SmartSwitch_LED02_STATE = LOW;
         MQTT_SendSTAT("LED02", "OFF");
     }
@@ -171,13 +171,13 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         }
         else if (strcmp(Message, "LNKLD") == 0)
         {
-            MQTT_SendSTAT("LNKLD", SmartSwitch_LNKLD ? "ON" : "OFF");
+            MQTT_SendSTAT("LNKLD", SmartSwitch_LED02 ? "ON" : "OFF");
         }
         else if (strcmp(Message, "All") == 0)
         {
             MQTT_SendSTAT("Power", SmartSwitch_PWR_STATE ? "ON" : "OFF");
             MQTT_SendSTAT("LED01", SmartSwitch_LED01 ? "ON" : "OFF");
-            MQTT_SendSTAT("LNKLD", SmartSwitch_LNKLD ? "ON" : "OFF");
+            MQTT_SendSTAT("LNKLD", SmartSwitch_LED02 ? "ON" : "OFF");
         }
         // else if (strcmp(Message, "All") == 0)
 
