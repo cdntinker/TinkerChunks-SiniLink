@@ -17,6 +17,10 @@ It will cover:
 
 This is a sketchy outline that's being worked on...
 
+### Required Libraries:
+
+This library uses [my DEBUG library](https://github.com/cdntinker/TinkerLibs-DEBUG).
+
 ### PlatformIO
 In `platformio.ini`, add https://github.com/cdntinker/TinkerChunks-SmartSwitch to your `lib-deps` for the project.
 
