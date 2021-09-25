@@ -15,10 +15,6 @@
   #endif
 #endif // SmartSwitch_DEFINES
 
-// bool TestState = LOW;
-
-void SmartSwitch_test();
-
 void SmartSwitch_init();
 
 void SmartSwitch_Button();

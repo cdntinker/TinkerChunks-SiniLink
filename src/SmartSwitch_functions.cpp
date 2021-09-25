@@ -9,17 +9,6 @@ void MQTT_SendNOTI(const char *Topic, const char *Message);
 void MQTT_SendTELE(const char *Topic, const char *Message);
 #include "Tinker_DEBUG.h"
 
-// void SmartSwitch_test()
-// {
-//     if (TestState)
-//         TestState = LOW;
-//     else
-//         TestState = HIGH;
-//     // SmartSwitch_LED(TestState);
-//     // SmartSwitch_LINKLED(TestState);
-//     SmartSwitch_Relay(TestState);
-// }
-
 void SmartSwitch_init()
 {
     DEBUG_Init("SmartSwitch");

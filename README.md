@@ -65,5 +65,16 @@ Download and copy the content of the `src` & `include` folders there.
 ## The Functions
 These are all declared in **Tinker_SmartSwitch.h**
 
+### `void SmartSwitch_init()`
+
+### `void SmartSwitch_Button()`
+### `void SmartSwitch_Relay(bool OnOff)`
+### `void SmartSwitch_Toggle()`
+
+### `void SmartSwitch_LED(bool OnOff)`
+### `void SmartSwitch_LINKLED(bool OnOff)`
+
+### `void MQTT_HandleMessages(const char *Topic, const char *Message)`
+
 ## An Example
 Sorry...  Not yet.
