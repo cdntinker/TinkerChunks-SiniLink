@@ -1,5 +1,14 @@
 # TinkerChunks-SmartSwitch
 
+- [Overview](#overview)
+- [Required Libraries](#required-libraries)
+- Usage:
+  - [With PlatformIO](#platformio)
+  - [With Arduino IDE](#arduino-ide)
+- [The Functions](#the-functions)
+- [An Example](#an-example)
+
+## Overview
 Smart Switch Handling library (For use with AustinOTA)
 
 It will cover:
@@ -13,13 +22,13 @@ It will cover:
 
 (Probably damn near all of the Sonoff range...)
 
+## Required Libraries:
+
+This library uses [my DEBUG library](https://github.com/cdntinker/TinkerLibs-DEBUG).
+
 ## Usage
 
 This is a sketchy outline that's being worked on...
-
-### Required Libraries:
-
-This library uses [my DEBUG library](https://github.com/cdntinker/TinkerLibs-DEBUG).
 
 ### PlatformIO
 In `platformio.ini`, add https://github.com/cdntinker/TinkerChunks-SmartSwitch to your `lib-deps` for the project.
@@ -27,6 +36,7 @@ In `platformio.ini`, add https://github.com/cdntinker/TinkerChunks-SmartSwitch t
 ```
 lib_deps =
    Some Library
+   https://github.com/cdntinker/TinkerLibs-DEBUG
    https://github.com/cdntinker/TinkerChunks-SmartSwitch
    Some Other Library
 ```
@@ -41,3 +51,6 @@ In your default sketch folder (`~/Arduino` on Linux), you'll find a folder named
 Create a subfolder in there for this library.  (I named it `TinkerChunks-SmartSwitch` here.)
 
 Download and copy the content of the `src` & `include` folders there.
+
+## The Functions
+## An Example
