@@ -59,7 +59,7 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
     else
     {
         digitalWrite(SmartSwitch_RELAY01, LOW);
-        SmartSwitch_RLY01_STATE = LOW;
+        SmartSwitch_RLY_STATE[RelayNum] = LOW;
         SmartSwitch_TurnOn = "ButtonClickable";
         SmartSwitch_TurnOff = "ButtonHere";
         sprintf(DEBUGtxt, "Relay %02d OFF", RelayNum);
