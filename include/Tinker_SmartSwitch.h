@@ -7,6 +7,9 @@
   #ifndef SmartSwitch_RELAY01
     #define SmartSwitch_RELAY01 5  // Relay 1  - The Relay + red LED
   #endif
+  #ifndef SmartSwitch_RELAY02
+    #define SmartSwitch_RELAY02 5  // Relay 1  - The Relay + red LED
+  #endif
   #ifndef SmartSwitch_LED01
     #define SmartSwitch_LED01 14 // LED 1    - Green LED
   #endif
@@ -18,8 +21,8 @@
 void SmartSwitch_init();
 
 void SmartSwitch_Button();
-void SmartSwitch_Relay(bool OnOff);
-void SmartSwitch_Toggle();
+void SmartSwitch_Relay(int RelayNum, bool OnOff);
+void SmartSwitch_Toggle(int RelayNum);
 
 void SmartSwitch_LED(bool OnOff);
 void SmartSwitch_LINKLED(bool OnOff);

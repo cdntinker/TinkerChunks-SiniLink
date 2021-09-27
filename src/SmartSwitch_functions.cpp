@@ -14,6 +14,7 @@ void SmartSwitch_init()
     DEBUG_Init("SmartSwitch");
 
     pinMode(SmartSwitch_RELAY01, OUTPUT);
+    pinMode(SmartSwitch_RELAY02, OUTPUT);
     pinMode(SmartSwitch_LED01, OUTPUT);
     pinMode(SmartSwitch_LED02, OUTPUT);
 }
@@ -31,7 +32,7 @@ String SmartSwitch_TurnOn;
 String SmartSwitch_TurnOff;
 
 // Turn relay on/off
-void SmartSwitch_Relay(bool OnOff)
+void SmartSwitch_Relay(int RelayNum, bool OnOff)
 {
     DEBUG_SectionTitle("SmartSwitch Action");
     if (OnOff)
@@ -55,7 +56,7 @@ void SmartSwitch_Relay(bool OnOff)
 }
 
 // Turn relay on/off
-void SmartSwitch_Toggle()
+void SmartSwitch_Toggle(int RelayNum)
 {
     DEBUG_SectionTitle("SmartSwitch Action");
     DEBUG_LineOut("Relay TOGGLE");
