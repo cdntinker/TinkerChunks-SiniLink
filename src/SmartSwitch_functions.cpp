@@ -53,8 +53,8 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
         SmartSwitch_TurnOn = "ButtonHere";
         SmartSwitch_TurnOff = "ButtonClickable";
         MQTT_SendSTAT("Power", "ON");
-        sprintf(Debugtxt)
-        DEBUG_LineOut("Relay ON");
+        sprintf(DEBUGtxt, "Relay %2d ON", RelayNum)
+        DEBUG_LineOut(DEBUGtxt);
     }
     else
     {
@@ -62,8 +62,8 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
         SmartSwitch_RLY01_STATE = LOW;
         SmartSwitch_TurnOn = "ButtonClickable";
         SmartSwitch_TurnOff = "ButtonHere";
-        MQTT_SendSTAT("Power", "OFF");
-        DEBUG_LineOut("Relay OFF");
+        sprintf(DEBUGtxt, "Relay %2d OFF", RelayNum)
+        DEBUG_LineOut(DEBUGtxt);
     }
 }
 
@@ -71,7 +71,8 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
 void SmartSwitch_Toggle(int RelayNum)
 {
     DEBUG_SectionTitle("SmartSwitch Action");
-    DEBUG_LineOut("Relay TOGGLE");
+        sprintf(DEBUGtxt, "Relay %2d TOGGLE", RelayNum)
+        DEBUG_LineOut(DEBUGtxt);
     SmartSwitch_Relay(RelayNum, !SmartSwitch_RLY01_STATE);
 
     // if (SmartSwitch_RLY01_STATE == LOW)
