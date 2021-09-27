@@ -14,10 +14,10 @@ bool SmartSwitch_RLY_STATE[4];
 bool SmartSwitch_LED_STATE[4];
 
 
-bool SmartSwitch_RLY01_STATE;    // BARF!
-bool SmartSwitch_RLY02_STATE;    // BARF!
-bool SmartSwitch_RLY03_STATE;    // BARF!
-bool SmartSwitch_RLY04_STATE;    // BARF!
+// bool SmartSwitch_RLY01_STATE;    // BARF!
+// bool SmartSwitch_RLY02_STATE;    // BARF!
+// bool SmartSwitch_RLY03_STATE;    // BARF!
+// bool SmartSwitch_RLY04_STATE;    // BARF!
 
 bool SmartSwitch_LED01_STATE;    // BARF!
 bool SmartSwitch_LED02_STATE;    // BARF!
@@ -75,15 +75,6 @@ void SmartSwitch_Toggle(int RelayNum)
         sprintf(DEBUGtxt, "Relay %02d TOGGLE", RelayNum);
         DEBUG_LineOut(DEBUGtxt);
     SmartSwitch_Relay(RelayNum, !SmartSwitch_RLY_STATE[RelayNum]);
-
-    // if (SmartSwitch_RLY01_STATE == LOW)
-    // {
-    //     SmartSwitch_Relay(HIGH);
-    // }
-    // else
-    // {
-    //     SmartSwitch_Relay(LOW);
-    // }
 }
 
 // Turn LED on/off
