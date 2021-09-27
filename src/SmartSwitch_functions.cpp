@@ -18,7 +18,7 @@ void SmartSwitch_init()
     pinMode(SmartSwitch_LED02, OUTPUT);
 }
 
-bool SmartSwitch_PWR_STATE;
+bool SmartSwitch_RLY01_STATE;
 bool SmartSwitch_LED01_STATE;
 bool SmartSwitch_LED02_STATE;
 
@@ -37,7 +37,7 @@ void SmartSwitch_Relay(bool OnOff)
     if (OnOff)
     {
         digitalWrite(SmartSwitch_RELAY01, HIGH);
-        SmartSwitch_PWR_STATE = HIGH;
+        SmartSwitch_RLY01_STATE = HIGH;
         SmartSwitch_TurnOn = "ButtonHere";
         SmartSwitch_TurnOff = "ButtonClickable";
         MQTT_SendSTAT("Power", "ON");
@@ -46,7 +46,7 @@ void SmartSwitch_Relay(bool OnOff)
     else
     {
         digitalWrite(SmartSwitch_RELAY01, LOW);
-        SmartSwitch_PWR_STATE = LOW;
+        SmartSwitch_RLY01_STATE = LOW;
         SmartSwitch_TurnOn = "ButtonClickable";
         SmartSwitch_TurnOff = "ButtonHere";
         MQTT_SendSTAT("Power", "OFF");
@@ -59,9 +59,9 @@ void SmartSwitch_Toggle()
 {
     DEBUG_SectionTitle("SmartSwitch Action");
     DEBUG_LineOut("Relay TOGGLE");
-    SmartSwitch_Relay(!SmartSwitch_PWR_STATE);
+    SmartSwitch_Relay(!SmartSwitch_RLY01_STATE);
 
-    // if (SmartSwitch_PWR_STATE == LOW)
+    // if (SmartSwitch_RLY01_STATE == LOW)
     // {
     //     SmartSwitch_Relay(HIGH);
     // }
@@ -122,7 +122,7 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
             SmartSwitch_Relay(LOW);
         if (strcmp(Message, "toggle") == 0)
             SmartSwitch_Toggle();
-        // SmartSwitch_Relay(!SmartSwitch_PWR_STATE);
+        // SmartSwitch_Relay(!SmartSwitch_RLY01_STATE);
     }
     else if (strcmp(Topic, "/LED01") == 0)
     {
@@ -152,7 +152,7 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         DEBUG_LineOut("Status Requested");
         if (strcmp(Message, "Power") == 0)
         {
-            MQTT_SendSTAT("Power", SmartSwitch_PWR_STATE ? "ON" : "OFF");
+            MQTT_SendSTAT("Power", SmartSwitch_RLY01_STATE ? "ON" : "OFF");
         }
         else if (strcmp(Message, "LED01") == 0)
         {
@@ -164,7 +164,7 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
         }
         else if (strcmp(Message, "All") == 0)
         {
-            MQTT_SendSTAT("Power", SmartSwitch_PWR_STATE ? "ON" : "OFF");
+            MQTT_SendSTAT("Power", SmartSwitch_RLY01_STATE ? "ON" : "OFF");
             MQTT_SendSTAT("LED01", SmartSwitch_LED01 ? "ON" : "OFF");
             MQTT_SendSTAT("LNKLD", SmartSwitch_LED02 ? "ON" : "OFF");
         }
