@@ -62,6 +62,7 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
         SmartSwitch_RLY_STATE[RelayNum] = LOW;
         SmartSwitch_TurnOn = "ButtonClickable";
         SmartSwitch_TurnOff = "ButtonHere";
+        MQTT_SendSTAT("Power", "OFF");
         sprintf(DEBUGtxt, "Relay %02d OFF", RelayNum);
         DEBUG_LineOut(DEBUGtxt);
     }
