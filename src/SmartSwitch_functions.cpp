@@ -60,7 +60,7 @@ void SmartSwitch_Toggle(int RelayNum)
 {
     DEBUG_SectionTitle("SmartSwitch Action");
     DEBUG_LineOut("Relay TOGGLE");
-    SmartSwitch_Relay(int RelayNum, !SmartSwitch_RLY01_STATE);
+    SmartSwitch_Relay(RelayNum, !SmartSwitch_RLY01_STATE);
 
     // if (SmartSwitch_RLY01_STATE == LOW)
     // {
