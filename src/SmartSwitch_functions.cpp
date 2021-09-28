@@ -93,24 +93,24 @@ void SmartSwitch_LED(int LEDNum, bool OnOff)
     }
 }
 
-// Turn Link LED on/off
-void SmartSwitch_LINKLED(bool OnOff)
-{
-    if (OnOff)
-    {
-        DEBUG_LineOut("Link LED ON");
-        digitalWrite(SmartSwitch_LED02, HIGH);
-        SmartSwitch_LED02_STATE = HIGH;
-        MQTT_SendSTAT("LED02", "ON");
-    }
-    else
-    {
-        DEBUG_LineOut("Link LED OFF");
-        digitalWrite(SmartSwitch_LED02, LOW);
-        SmartSwitch_LED02_STATE = LOW;
-        MQTT_SendSTAT("LED02", "OFF");
-    }
-}
+// // Turn Link LED on/off
+// void SmartSwitch_LINKLED(bool OnOff)
+// {
+//     if (OnOff)
+//     {
+//         DEBUG_LineOut("Link LED ON");
+//         digitalWrite(SmartSwitch_LED02, HIGH);
+//         SmartSwitch_LED02_STATE = HIGH;
+//         MQTT_SendSTAT("LED02", "ON");
+//     }
+//     else
+//     {
+//         DEBUG_LineOut("Link LED OFF");
+//         digitalWrite(SmartSwitch_LED02, LOW);
+//         SmartSwitch_LED02_STATE = LOW;
+//         MQTT_SendSTAT("LED02", "OFF");
+//     }
+// }
 
 #if defined(SmartSwitch) && !defined(TestCode)
 void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE])
