@@ -43,6 +43,7 @@ RelayCount++;
     SmartSwtch_RelayPin[3] = SmartSwitch_RELAY03;
 #endif
 
+Serial.println(RelayCount);
     // pinMode(SmartSwitch_RELAY01, OUTPUT);
     // pinMode(SmartSwitch_RELAY02, OUTPUT);
     // pinMode(SmartSwitch_LED01, OUTPUT);
