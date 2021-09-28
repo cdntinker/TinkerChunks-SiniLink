@@ -19,6 +19,12 @@ bool SmartSwitch_LED_STATE[4];
 int SmartSwitch_ButtonPin[4];
 
 
+
+
+void SmartSwitch_init()
+{
+    DEBUG_Init("SmartSwitch");
+
 int RelayCount = 0;
 int LEDCount = 0;
 int ButtonCount = 0;
@@ -36,15 +42,10 @@ int ButtonCount = 0;
     SmartSwtch_RelayPin[3] = SmartSwitch_RELAY03;
 #endif
 
-
-void SmartSwitch_init()
-{
-    DEBUG_Init("SmartSwitch");
-
-    pinMode(SmartSwitch_RELAY01, OUTPUT);
-    pinMode(SmartSwitch_RELAY02, OUTPUT);
-    pinMode(SmartSwitch_LED01, OUTPUT);
-    pinMode(SmartSwitch_LED02, OUTPUT);
+    // pinMode(SmartSwitch_RELAY01, OUTPUT);
+    // pinMode(SmartSwitch_RELAY02, OUTPUT);
+    // pinMode(SmartSwitch_LED01, OUTPUT);
+    // pinMode(SmartSwitch_LED02, OUTPUT);
 }
 
 // Detect button press
