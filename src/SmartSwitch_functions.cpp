@@ -78,20 +78,20 @@ void SmartSwitch_Toggle(int RelayNum)
 }
 
 // Turn LED on/off
-void SmartSwitch_LED(bool OnOff)
+void SmartSwitch_LED(int LEDNum, bool OnOff)
 {
     if (OnOff)
     {
         DEBUG_LineOut("LED ON");
         digitalWrite(SmartSwitch_LED01, HIGH);
-        SmartSwitch_LED01_STATE = HIGH;
+        SmartSwitch_LED_STATE[LEDNum] = HIGH;
         MQTT_SendSTAT("LED01", "ON");
     }
     else
     {
         DEBUG_LineOut("LED OFF");
         digitalWrite(SmartSwitch_LED01, LOW);
-        SmartSwitch_LED01_STATE = LOW;
+        SmartSwitch_LED_STATE[LEDNum] = LOW;
         MQTT_SendSTAT("LED01", "OFF");
     }
 }
