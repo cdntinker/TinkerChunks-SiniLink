@@ -10,19 +10,16 @@ void MQTT_SendTELE(const char *Topic, const char *Message);
 #include "Tinker_DEBUG.h"
 extern char DEBUGtxt[48];
 
-bool SmartSwitch_RLY_STATE[4];
+int SmartSwitch_RelayPin[4];
+bool SmartSwitch_Relay_STATE[4];
+
+int SmartSwitch_LEDPin[4];
 bool SmartSwitch_LED_STATE[4];
 
+int SmartSwitch_ButtonPin[4];
 
-// bool SmartSwitch_RLY01_STATE;    // BARF!
-// bool SmartSwitch_RLY02_STATE;    // BARF!
-// bool SmartSwitch_RLY03_STATE;    // BARF!
-// bool SmartSwitch_RLY04_STATE;    // BARF!
 
-bool SmartSwitch_LED01_STATE;    // BARF!
-bool SmartSwitch_LED02_STATE;    // BARF!
-bool SmartSwitch_LED03_STATE;    // BARF!
-bool SmartSwitch_LED04_STATE;    // BARF!
+
 
 void SmartSwitch_init()
 {
@@ -49,7 +46,7 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
     if (OnOff)
     {
         digitalWrite(SmartSwitch_RELAY01, HIGH);
-        SmartSwitch_RLY_STATE[RelayNum] = HIGH;
+        SmartSwitch_Relay_STATE[RelayNum] = HIGH;
         SmartSwitch_TurnOn = "ButtonHere";
         SmartSwitch_TurnOff = "ButtonClickable";
         MQTT_SendSTAT("Power", "ON");
@@ -59,7 +56,7 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
     else
     {
         digitalWrite(SmartSwitch_RELAY01, LOW);
-        SmartSwitch_RLY_STATE[RelayNum] = LOW;
+        SmartSwitch_Relay_STATE[RelayNum] = LOW;
         SmartSwitch_TurnOn = "ButtonClickable";
         SmartSwitch_TurnOff = "ButtonHere";
         MQTT_SendSTAT("Power", "OFF");
@@ -74,7 +71,7 @@ void SmartSwitch_Toggle(int RelayNum)
     DEBUG_SectionTitle("SmartSwitch Action");
         sprintf(DEBUGtxt, "Relay %02d TOGGLE", RelayNum);
         DEBUG_LineOut(DEBUGtxt);
-    SmartSwitch_Relay(RelayNum, !SmartSwitch_RLY_STATE[RelayNum]);
+    SmartSwitch_Relay(RelayNum, !SmartSwitch_Relay_STATE[RelayNum]);
 }
 
 // Turn LED on/off
