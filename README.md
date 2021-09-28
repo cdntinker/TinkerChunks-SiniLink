@@ -41,14 +41,14 @@ lib_deps =
    Some Other Library
 ```
 
-Also, in `platformio.ini`, You can define the GPIO pins (Current defaults are for the Sinilink XY-WFUSB):
+Also, in `platformio.ini`, You can define the GPIO pins (These are for the Sinilink XY-WFUSB):
 
 ```
 build_flags =
-    -D SmartSwitch_RELAY01=5
-    -D SmartSwitch_BUTTN01=4
-    -D SmartSwitch_LED01=14
-    -D SmartSwitch_LED02=16
+    -D SmartSwitch_RELAY00=5
+    -D SmartSwitch_BUTTN00=4
+    -D SmartSwitch_LED00=14
+    -D SmartSwitch_LED01=16
 ```
 
 Then add `#include <Tinker_SmartSwitch.h>` to any source file you want to reference these functions in.
@@ -67,12 +67,12 @@ These are all declared in **Tinker_SmartSwitch.h**
 
 ### `void SmartSwitch_init()`
 
-### `void SmartSwitch_Button()`
-### `void SmartSwitch_Relay(bool OnOff)`
-### `void SmartSwitch_Toggle()`
+### `void SmartSwitch_Button(int ButtonNum)`
+### `void SmartSwitch_Relay(int RelayNum, bool OnOff)`
+### `void SmartSwitch_Toggle(int RelayNum)`
 
-### `void SmartSwitch_LED(bool OnOff)`
-### `void SmartSwitch_LINKLED(bool OnOff)`
+### `void SmartSwitch_LED(int LEDNum, bool OnOff)`
+
 
 ### `void MQTT_HandleMessages(const char *Topic, const char *Message)`
 

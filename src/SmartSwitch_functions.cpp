@@ -7,54 +7,115 @@
 void MQTT_SendSTAT(const char *Topic, const char *Message);
 void MQTT_SendNOTI(const char *Topic, const char *Message);
 void MQTT_SendTELE(const char *Topic, const char *Message);
+
 #include "Tinker_DEBUG.h"
 extern char DEBUGtxt[48];
 
 int SmartSwitch_RelayPin[4];
 bool SmartSwitch_Relay_STATE[4];
+int RelayCount = 0;
 
 int SmartSwitch_LEDPin[4];
 bool SmartSwitch_LED_STATE[4];
+int LEDCount = 0;
 
 int SmartSwitch_ButtonPin[4];
+int ButtonCount = 0;
 
 void SmartSwitch_init()
 {
     DEBUG_Init("SmartSwitch");
 
-int RelayCount = 0;
-int LEDCount = 0;
-int ButtonCount = 0;
-
+/*****  Relays  *****/
 #ifdef SmartSwitch_RELAY00
-RelayCount++;
-    SmartSwtch_RelayPin[0] = SmartSwitch_RELAY00;
+    SmartSwitch_RelayPin[RelayCount] = SmartSwitch_RELAY00;
+    pinMode(SmartSwitch_RelayPin[LEDCount], OUTPUT);
+    RelayCount++;
 #endif
 #ifdef SmartSwitch_RELAY01
-RelayCount++;
-    SmartSwtch_RelayPin[1] = SmartSwitch_RELAY01;
+    SmartSwitch_RelayPin[RelayCount] = SmartSwitch_RELAY01;
+    pinMode(SmartSwitch_RelayPin[LEDCount], OUTPUT);
+    RelayCount++;
 #endif
 #ifdef SmartSwitch_RELAY02
-RelayCount++;
-    SmartSwtch_RelayPin[2] = SmartSwitch_RELAY02;
+    SmartSwitch_RelayPin[RelayCount] = SmartSwitch_RELAY02;
+    pinMode(SmartSwitch_RelayPin[LEDCount], OUTPUT);
+    RelayCount++;
 #endif
 #ifdef SmartSwitch_RELAY03
-RelayCount++;
-    SmartSwtch_RelayPin[3] = SmartSwitch_RELAY03;
+    SmartSwitch_RelayPin[RelayCount] = SmartSwitch_RELAY03;
+    pinMode(SmartSwitch_RelayPin[LEDCount], OUTPUT);
+    RelayCount++;
 #endif
 
-Serial.printf(" RelayCount %d\n", RelayCount);
-Serial.printf("   LEDCount %d\n", LEDCount);
-Serial.printf("ButtonCount %d\n", ButtonCount);
+/*****  Buttons  *****/
+#ifdef SmartSwitch_BUTTN00
+    SmartSwitch_ButtonPin[ButtonCount] = SmartSwitch_BUTTN00;
+    pinMode(SmartSwitch_ButtonPin[LEDCount], INPUT);
+    ButtonCount++;
+#endif
+#ifdef SmartSwitch_BUTTN01
+    SmartSwitch_ButtonPin[ButtonCount] = SmartSwitch_BUTTN01;
+    pinMode(SmartSwitch_ButtonPin[LEDCount], INPUT);
+    ButtonCount++;
+#endif
+#ifdef SmartSwitch_BUTTN02
+    SmartSwitch_ButtonPin[ButtonCount] = SmartSwitch_BUTTN02;
+    pinMode(SmartSwitch_ButtonPin[LEDCount], INPUT);
+    ButtonCount++;
+#endif
+#ifdef SmartSwitch_BUTTN03
+    SmartSwitch_ButtonPin[ButtonCount] = SmartSwitch_BUTTN03;
+    pinMode(SmartSwitch_ButtonPin[LEDCount], INPUT);
+    ButtonCount++;
+#endif
 
-    // pinMode(SmartSwitch_RELAY01, OUTPUT);
-    // pinMode(SmartSwitch_RELAY02, OUTPUT);
-    // pinMode(SmartSwitch_LED01, OUTPUT);
-    // pinMode(SmartSwitch_LED02, OUTPUT);
+/*****  LEDs  *****/
+#ifdef SmartSwitch_LED00
+    SmartSwitch_LEDPin[LEDCount] = SmartSwitch_LED00;
+    pinMode(SmartSwitch_LEDPin[LEDCount], OUTPUT);
+    LEDCount++;
+#endif
+#ifdef SmartSwitch_LED01
+    SmartSwitch_LEDPin[LEDCount] = SmartSwitch_LED01;
+    pinMode(SmartSwitch_LEDPin[LEDCount], OUTPUT);
+    LEDCount++;
+#endif
+#ifdef SmartSwitch_LED02
+    SmartSwitch_LEDPin[2LEDCount] = SmartSwitch_LED02;
+    pinMode(SmartSwitch_LEDPin[LEDCount], OUTPUT);
+    LEDCount++;
+#endif
+#ifdef SmartSwitch_LED03
+    SmartSwitch_LEDPin[LEDCount] = SmartSwitch_LED03;
+    pinMode(SmartSwitch_LEDPin[LEDCount], OUTPUT);
+    LEDCount++;
+#endif
+
+    Serial.printf("Relays: %2d ( ", RelayCount);
+    for (int ctr = 0; ctr < RelayCount; ctr++)
+    {
+        Serial.printf("%2d ", SmartSwitch_RelayPin[ctr]);
+    }
+    Serial.println(")");
+
+    Serial.printf("Relays: %2d ( ", ButtonCount);
+    for (int ctr = 0; ctr < ButtonCount; ctr++)
+    {
+        Serial.printf("%2d ", SmartSwitch_ButtonPin[ctr]);
+    }
+    Serial.println(")");
+
+    Serial.printf("  LEDs: %2d ( ", LEDCount);
+    for (int ctr = 0; ctr < LEDCount; ctr++)
+    {
+        Serial.printf("%2d ", SmartSwitch_LEDPin[ctr]);
+    }
+    Serial.println(")");
 }
 
-// Detect button press
-void SmartSwitch_Button()
+// Handle button press
+void SmartSwitch_Button(int ButtonNum)
 {
 }
 
@@ -67,7 +128,7 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
     DEBUG_SectionTitle("SmartSwitch Action");
     if (OnOff)
     {
-        digitalWrite(SmartSwitch_RELAY01, HIGH);
+        digitalWrite(SmartSwitch_RelayPin[RelayNum], HIGH);
         SmartSwitch_Relay_STATE[RelayNum] = HIGH;
         SmartSwitch_TurnOn = "ButtonHere";
         SmartSwitch_TurnOff = "ButtonClickable";
@@ -77,7 +138,7 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
     }
     else
     {
-        digitalWrite(SmartSwitch_RELAY01, LOW);
+        digitalWrite(SmartSwitch_RelayPin[RelayNum], LOW);
         SmartSwitch_Relay_STATE[RelayNum] = LOW;
         SmartSwitch_TurnOn = "ButtonClickable";
         SmartSwitch_TurnOff = "ButtonHere";
@@ -91,8 +152,8 @@ void SmartSwitch_Relay(int RelayNum, bool OnOff)
 void SmartSwitch_Toggle(int RelayNum)
 {
     DEBUG_SectionTitle("SmartSwitch Action");
-        sprintf(DEBUGtxt, "Relay %02d TOGGLE", RelayNum);
-        DEBUG_LineOut(DEBUGtxt);
+    sprintf(DEBUGtxt, "Relay %02d TOGGLE", RelayNum);
+    DEBUG_LineOut(DEBUGtxt);
     SmartSwitch_Relay(RelayNum, !SmartSwitch_Relay_STATE[RelayNum]);
 }
 
@@ -114,25 +175,6 @@ void SmartSwitch_LED(int LEDNum, bool OnOff)
         MQTT_SendSTAT("LED01", "OFF");
     }
 }
-
-// // Turn Link LED on/off
-// void SmartSwitch_LINKLED(bool OnOff)
-// {
-//     if (OnOff)
-//     {
-//         DEBUG_LineOut("Link LED ON");
-//         digitalWrite(SmartSwitch_LED02, HIGH);
-//         SmartSwitch_LED02_STATE = HIGH;
-//         MQTT_SendSTAT("LED02", "ON");
-//     }
-//     else
-//     {
-//         DEBUG_LineOut("Link LED OFF");
-//         digitalWrite(SmartSwitch_LED02, LOW);
-//         SmartSwitch_LED02_STATE = LOW;
-//         MQTT_SendSTAT("LED02", "OFF");
-//     }
-// }
 
 #if defined(SmartSwitch) && !defined(TestCode)
 void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE])
@@ -194,7 +236,6 @@ void MQTT_HandleMessages(const char *Topic, const char Message[MQTT_BUFFER_SIZE]
             MQTT_SendSTAT("LNKLD", SmartSwitch_LED02 ? "ON" : "OFF");
         }
         // else if (strcmp(Message, "All") == 0)
-
     }
 
     else
