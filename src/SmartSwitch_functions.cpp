@@ -19,6 +19,22 @@ bool SmartSwitch_LED_STATE[4];
 int SmartSwitch_ButtonPin[4];
 
 
+int RelayCount = 0;
+int LEDCount = 0;
+int ButtonCount = 0;
+
+#ifdef SmartSwitch_RELAY00
+    SmartSwtch_RelayPin[0] = SmartSwitch_RELAY00;
+#endif
+#ifdef SmartSwitch_RELAY01
+    SmartSwtch_RelayPin[1] = SmartSwitch_RELAY01;
+#endif
+#ifdef SmartSwitch_RELAY02
+    SmartSwtch_RelayPin[2] = SmartSwitch_RELAY02;
+#endif
+#ifdef SmartSwitch_RELAY03
+    SmartSwtch_RelayPin[3] = SmartSwitch_RELAY03;
+#endif
 
 
 void SmartSwitch_init()
